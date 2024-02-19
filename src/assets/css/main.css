@@ -1,0 +1,42 @@
+
+#app {
+  display: flex;
+  flex-direction: column;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+  background-color: var(--primary-color);
+}
+
+main {
+  background-color: var(--primary-color);
+}
+
+body {
+  background-color: #bcc9ce;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: sans-serif;
+}
+
+:root {
+  --primary-color: #043444;
+  --secondary-color: #0484b7;
+}
+
+a {
+  color: #04a3e3;
+  text-decoration: none;
+}
+
+a:active{
+
+  text-decoration: underline;
+}
+
