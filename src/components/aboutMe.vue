@@ -50,6 +50,90 @@ Malgré ces différentes expériences, ma passion pour l’informatique n’a ja
 <style scoped>
 
 
+section {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+#aboutMe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 150px;
+}
 
+#me {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#me p {
+  width: 30%;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-right: 20px;
+}
+
+
+#me img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+section h2 ,section p{
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  color: var(--secondary-color);
+  letter-spacing: 2px;
+  color: #04a3e3;
+
+}
+
+section h2 {
+  text-decoration: underline;
+}
+
+section img {
+width: 50px;
+height: 50px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #043444;  
+  box-shadow: 5px 5px 20px #bcc9ce;
+  width: 80%;
+  border-radius: 1%;
+  padding-top: 20px;
+}
+
+#me li img {
+  width: 50px;
+  height: 50px;
+  border-radius: 30%;
+}
+
+#me li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.checked {
+  color: #0484b7;
+}
+
+.skills {
+  border-radius: 10%;
+}
 
 </style>
