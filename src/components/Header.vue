@@ -33,5 +33,29 @@ const mouseMove = (event) => {
 
 <style scoped>
 
+header {
+  background-color: #043444;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+  width: 70%;
+  max-width: 1280px;
+  height: 150px;
+  align-items: center;
+  border-bottom: 0.1rem solid #0484b7;
+  position: fixed;
+  overflow: auto;
+}
 
+img {
+  width: 125px;
+  height: 125px;
+  transition: transform 0.2s ease;
+}
+
+nav {
+  display: flex;
+  justify-content: space-evenly;
+  width: 30%;
+}
 </style>
