@@ -1,17 +1,8 @@
     <script setup>
     import { ref, onMounted } from 'vue';
-    import cv from '../assets/img/cv.png';
-    import cdc from '../assets/img/cdc.png';
-    import ec from '../assets/img/ec.png';
-    import dam from '../assets/img/dam.png';
-    
-    const projects = [
-    { id: 1, title: 'CV', imageSrc: cv, github: "https://github.com/KaynoxDev/Devoir-CV" },
-    { id: 2, title: 'Espace Commentaire', imageSrc: ec, github: "https://github.com/KaynoxDev/Devoir-DynamiserUnEspaceCommentaire" },
-    { id: 3, title: 'Cahier des charges', imageSrc: cdc },
-    { id: 4, title: 'Damier', imageSrc: dam },
-    { id: 5, title: 'Jeu du Morpion', imageSrc: cv }
-    ];
+    import { projects } from '../stores/data.js';
+
+const dataTable = ref(projects);
 
     const visibleProjects = ref([]);
     const startIndex = ref(0);
@@ -31,6 +22,12 @@
   
 });
 
+
+
+
+
+
+
     // fonction pour le scroll vertical 
 
     function onWheel(event) {
@@ -48,12 +45,13 @@
     visibleProjects.value = projects.slice(startIndex.value, endIndex.value + 1);
 }
 
+let pictureIndex = ref(0); // Ajoutez cette ligne pour garder une trace de l'index de l'image actuelle
 
 
 import ModalComponent from '@/components/Modal.vue';
 
 const isModalOpened = ref(false);
-  const currentProject = ref(null);
+  const currentProject = ref(dataTable.value[0]);
 
   const openModal = (project) => { 
     currentProject.value = project; 
@@ -63,6 +61,11 @@ const isModalOpened = ref(false);
   const closeModal = () => {
     isModalOpened.value = false;
   };
+
+  const changePicture = () => {
+    pictureIndex.value = (pictureIndex.value + 1) % currentProject.value.picture.length;
+    currentProject.value.currentImage = currentProject.value.picture[pictureIndex.value]; // Changez cette ligne
+};
 
     </script>
 
@@ -76,18 +79,26 @@ const isModalOpened = ref(false);
         
         <h3>{{ project.title }}</h3>
         <button @click="openModal(project)"><img :src="project.imageSrc" alt="images de mes projets"></button>
-            <ModalComponent :isOpen="isModalOpened" @modal-close="closeModal">
-              <template #header>{{ currentProject.title }}</template> 
+            <ModalComponent :isOpen="isModalOpened">
+              <template #header>
+              <div id="closebtn">
+                {{ currentProject.title }}
+            <button id="btn"  @click="closeModal(project)">X</button>
+              </div>  </template> 
               <template #content>
-                <button id="gauche"></button>
-                <img :src="currentProject.imageSrc" alt="image du projet selectionné"> 
-                <button id="droite"></button>
+                <div id="btnnext">
+                    <button id="btnchange" @click="changePicture">&larr;</button>
+                <img id="imgproject" :src="currentProject.currentImage" alt="image du projet selectionné"> 
+                <button id="btnchange" @click="changePicture">&rarr;</button>
+            </div>
+                
               </template>
               <template #footer>
-                <p>HTML / CSS</p>
+                
                 <div id="timeGit">
-                <p>Créer le 03/02/2024</p>
-                <a :href="currentProject.github"><img id="git" src="../assets/img/github.svg" alt=""></a>
+                    <p>{{currentProject.createdAt}}</p>
+                <p>{{currentProject.techno}}</p>
+                <a :href="currentProject.project_link" target="_blank" rel="noopener"><img id="git" :src="currentProject.logo_link" alt=""></a>
                 </div>
                 
               </template>
@@ -98,8 +109,9 @@ const isModalOpened = ref(false);
     </ul>
     
         </article>
-        
         </section>
+
+        
     </div>
     
     </template>
@@ -165,26 +177,77 @@ const isModalOpened = ref(false);
     align-items: center;
     width: 100%;
     padding: 20px;
-    
     margin: 10px;
-    
     }
 
     img {
     width: 400px;
-    height: 600px;
+    height: 500px;
     border-radius: 10px;
     }
 
     #git{
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
     }
 
     #timeGit {
         display: flex;
         align-items: center;
+        justify-content: space-around;
         width: 500px;
+    }
+
+    #timeGit a:hover {
+        background-color: white;
+        border-radius: 10px;
+    }
+
+
+    button {
+        height: 500px;
+        border-radius: 20px;
+    }
+
+    #imgproject {
+        width: 800px;
+        height: 500px;
+    }
+
+    #btn {
+        
+        border: none;
+        width: 0px;
+        height: 20px;
+        font-size: 20px;
+        color: white;
+    }
+
+    #btnchange {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        margin-left: 10px;
+        margin-right: 50px;
+        width: 0;
+        height: 40px;
+        font-size: 40px;
+    }
+
+    #btnnext {
+        display: flex;
+        align-items: center;
+    }
+
+    #closebtn{
+        display: flex;
+        font-weight: bold;
+        color: var(--secondary-color);
+        text-transform: capitalize;
+        font-size: 20px;
+        width: 700px;
+        letter-spacing: 2px;
+        align-items: center;
         justify-content: space-between;
     }
     </style>

@@ -1,5 +1,5 @@
 <script setup>
-  import { defineProps, defineEmits, ref} from 'vue';
+  import { ref} from 'vue';
   import { onClickOutside } from '@vueuse/core';
   
   const props = defineProps({
@@ -50,23 +50,17 @@
   
   .modal-container   {
     display: flex;
-    flex-direction: column;
+    flex-direction: column;;
     align-items: center;
-    width: 1000px;
-    height: 1000px;
-    margin: 150px auto;
+    width: 50%;
+    height: 600px;
+    margin: 20px auto;
     padding: 20px 30px;
     background-color: #043444;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   }
 
-  .modal-container .modal-body{
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    align-items: center;
-  }
+
 
   </style>
