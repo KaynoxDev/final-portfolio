@@ -4,10 +4,10 @@
     import cdc from '../assets/img/cdc.png';
     import ec from '../assets/img/ec.png';
     import dam from '../assets/img/dam.png';
-
+    
     const projects = [
-    { id: 1, title: 'CV', imageSrc: cv },
-    { id: 2, title: 'Espace Commentaire', imageSrc: ec },
+    { id: 1, title: 'CV', imageSrc: cv, github: "https://github.com/KaynoxDev/Devoir-CV" },
+    { id: 2, title: 'Espace Commentaire', imageSrc: ec, github: "https://github.com/KaynoxDev/Devoir-DynamiserUnEspaceCommentaire" },
     { id: 3, title: 'Cahier des charges', imageSrc: cdc },
     { id: 4, title: 'Damier', imageSrc: dam },
     { id: 5, title: 'Jeu du Morpion', imageSrc: cv }
@@ -15,68 +15,93 @@
 
     const visibleProjects = ref([]);
     const startIndex = ref(0);
-    const endIndex = ref(2);
-    const myProject = ref(null);
+    const endIndex = ref(1);
+  
+    function disableScroll() {
+        document.body.style.overflowY = 'hidden';
+    }
+
+    function enableScroll() {
+        document.body.style.overflow = 'auto';
+    }
 
     onMounted(() => {
-    updateVisibleProjects();
-    
-    });
-
-    function updateVisibleProjects() {
-        visibleProjects.value = projects.slice(startIndex.value, endIndex.value);
-
-    // blocage du scroll horizontal si la souris est dans le container myProject
-        myProject.value.addEventListener('mouseenter', () => {
-        document.body.style.overflowY = 'hidden';
-        
-    });
-
-    myProject.value.addEventListener('mouseleave', () => {
-        document.body.style.overflow = 'auto';
-    });
-    }
+    visibleProjects.value = projects.slice(startIndex.value, endIndex.value + 1);
+ 
+  
+});
 
     // fonction pour le scroll vertical 
 
     function onWheel(event) {
     if (event.deltaY > 0) {
-
-        if (endIndex.value < projects.length) {
-        startIndex.value++;
-        endIndex.value++;
-        updateVisibleProjects();
+        if (endIndex.value < projects.length -1) {
+            startIndex.value++;
+            endIndex.value++;
         }
     } else {
-        
         if (startIndex.value > 0) {
-        startIndex.value--;
-        endIndex.value--;
-        updateVisibleProjects();
+            startIndex.value--;
+            endIndex.value--;
         }
     }
-    }
+    visibleProjects.value = projects.slice(startIndex.value, endIndex.value + 1);
+}
 
 
 
+import ModalComponent from '@/components/Modal.vue';
 
+const isModalOpened = ref(false);
+  const currentProject = ref(null);
+
+  const openModal = (project) => { 
+    currentProject.value = project; 
+    isModalOpened.value = true;
+  };
+
+  const closeModal = () => {
+    isModalOpened.value = false;
+  };
 
     </script>
 
     <template>
         <div id="project">
-        <section id="myProject" ref="myProject">
+        <section id="myProject" @mouseenter="disableScroll" @mouseleave="enableScroll" >
         <h2>Mes Projets</h2>
         <article>
             <ul ref="projectList" @wheel="onWheel">
-    <li v-for="project in visibleProjects" :key="project.id">
+                <li v-for="project in visibleProjects" :key="project.id">
+        
         <h3>{{ project.title }}</h3>
-        <img :src="project.imageSrc" alt="images de mes projets">
+        <button @click="openModal(project)"><img :src="project.imageSrc" alt="images de mes projets"></button>
+            <ModalComponent :isOpen="isModalOpened" @modal-close="closeModal">
+              <template #header>{{ currentProject.title }}</template> 
+              <template #content>
+                <button id="gauche"></button>
+                <img :src="currentProject.imageSrc" alt="image du projet selectionné"> 
+                <button id="droite"></button>
+              </template>
+              <template #footer>
+                <p>HTML / CSS</p>
+                <div id="timeGit">
+                <p>Créer le 03/02/2024</p>
+                <a :href="currentProject.github"><img id="git" src="../assets/img/github.svg" alt=""></a>
+                </div>
+                
+              </template>
+            </ModalComponent>
+        
+        
     </li>
     </ul>
+    
         </article>
+        
         </section>
     </div>
+    
     </template>
 
     <style scoped>
@@ -111,7 +136,7 @@
     display: flex ;
     padding-top: 20px;
     padding-bottom: 20px;
-    margin-top: 100px;
+    margin-top: 200px;
     }
 
     #project {
@@ -146,10 +171,21 @@
     }
 
     img {
-    width: 100%;
-    height: 500px;
+    width: 400px;
+    height: 600px;
     border-radius: 10px;
     }
 
+    #git{
+        width: 50px;
+        height: 50px;
+    }
 
+    #timeGit {
+        display: flex;
+        align-items: center;
+        width: 500px;
+        justify-content: space-between;
+    }
     </style>
+    
