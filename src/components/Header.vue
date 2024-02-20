@@ -38,13 +38,14 @@ header {
   display: flex;
   justify-content: space-between;
   padding-right: 20px;
-  width: 70%;
-  max-width: 1280px;
+  width: 80%;
+  max-width: 1230px;
   height: 150px;
   align-items: center;
   border-bottom: 0.1rem solid #0484b7;
   position: fixed;
   overflow: auto;
+  top: 0;
 }
 
 img {
@@ -58,4 +59,6 @@ nav {
   justify-content: space-evenly;
   width: 30%;
 }
+
+
 </style>

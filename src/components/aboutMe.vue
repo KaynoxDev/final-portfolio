@@ -49,17 +49,12 @@ Malgré ces différentes expériences, ma passion pour l’informatique n’a ja
 
 <style scoped>
 
-
-section {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-}
 #aboutMe {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 150px;
+  line-height: 30px;
 }
 
 #me {
@@ -92,8 +87,11 @@ section h2 ,section p{
   color: var(--secondary-color);
   letter-spacing: 2px;
   color: #04a3e3;
+  
 
 }
+
+
 
 section h2 {
   text-decoration: underline;
@@ -107,12 +105,14 @@ height: 50px;
 section {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   background-color: #043444;  
   box-shadow: 5px 5px 20px #bcc9ce;
   width: 80%;
   border-radius: 1%;
   padding-top: 20px;
+  margin-top: 50px;
 }
 
 #me li img {
