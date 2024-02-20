@@ -1,4 +1,65 @@
     <script setup>
+    import { ref, onMounted } from 'vue';
+    import cv from '../assets/img/cv.png';
+    import cdc from '../assets/img/cdc.png';
+    import ec from '../assets/img/ec.png';
+    import dam from '../assets/img/dam.png';
+
+    const projects = [
+    { id: 1, title: 'CV', imageSrc: cv },
+    { id: 2, title: 'Espace Commentaire', imageSrc: ec },
+    { id: 3, title: 'Cahier des charges', imageSrc: cdc },
+    { id: 4, title: 'Damier', imageSrc: dam },
+    { id: 5, title: 'Jeu du Morpion', imageSrc: cv }
+    ];
+
+    const visibleProjects = ref([]);
+    const startIndex = ref(0);
+    const endIndex = ref(2);
+    const myProject = ref(null);
+
+    onMounted(() => {
+    updateVisibleProjects();
+    
+    });
+
+    function updateVisibleProjects() {
+        visibleProjects.value = projects.slice(startIndex.value, endIndex.value);
+
+    // blocage du scroll horizontal si la souris est dans le container myProject
+        myProject.value.addEventListener('mouseenter', () => {
+        document.body.style.overflowY = 'hidden';
+        
+    });
+
+    myProject.value.addEventListener('mouseleave', () => {
+        document.body.style.overflow = 'auto';
+    });
+    }
+
+    // fonction pour le scroll vertical 
+
+    function onWheel(event) {
+    if (event.deltaY > 0) {
+
+        if (endIndex.value < projects.length) {
+        startIndex.value++;
+        endIndex.value++;
+        updateVisibleProjects();
+        }
+    } else {
+        
+        if (startIndex.value > 0) {
+        startIndex.value--;
+        endIndex.value--;
+        updateVisibleProjects();
+        }
+    }
+    }
+
+
+
+
 
     </script>
 
