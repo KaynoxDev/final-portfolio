@@ -3,7 +3,7 @@
   <div id="aboutMe">
     <section id="me">
       <img src="../assets/img/me.png" alt="" />
-      <p>Romain Chauvard</p>
+      <h1>Romain Chauvard</h1>
       <p>Développeur Web Junior</p>
       <ul>
         <li>
@@ -91,15 +91,20 @@
   margin-right: 20px;
 }
 
+h1 { 
+  color: #04a3e3;
+}
+
 section h2,
 section p {
   display: flex;
   justify-content: center;
   padding: 5px;
-  color: var(--secondary-color);
   letter-spacing: 2px;
   color: #04a3e3;
 }
+
+
 
 section h2 {
   text-decoration: underline;
@@ -146,5 +151,9 @@ section {
 
 .skills {
   border-radius: 10%;
+}
+
+#myHistory {
+  scroll-margin-top: 130px; /* match this with the height of your header */
 }
 </style>

@@ -99,4 +99,8 @@ div {
   display: flex;
   flex-direction: column;
 }
+
+#form {
+  scroll-margin-top: 130px; /* match this with the height of your header */
+}
 </style>

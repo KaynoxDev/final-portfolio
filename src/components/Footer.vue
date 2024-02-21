@@ -1,15 +1,15 @@
 <template>
-    <div>
-        <footer>
-            <small>Dernière mise à jour le 21/02/2024</small>  
-            <section>
-                <a href="https://github.com/kaynoxdev" target="_blank" ref=""><img src="../assets/img/git.png" alt="icon de github"></a>
-                <a href="https://github.com/kaynoxdev"><img src="../assets/img/linkd.png" alt="icon de linkedin"></a>
-
-            </section>
-            <small> &copy; 2024 by KaynoxDev</small>
-        </footer>
-    </div>
+    
+      
+            <footer>
+  <small>Dernière mise à jour le 21/02/2024</small>  
+  <div>
+    <a href="https://github.com/kaynoxdev" target="_blank" ref=""><img src="../assets/img/git.png" alt="icon de github"></a>
+    <a href="https://github.com/kaynoxdev"><img src="../assets/img/linkd.png" alt="icon de linkedin"></a>
+  </div>
+  <small> &copy; 2024 by KaynoxDev</small>
+</footer>
+    
 </template>
 
 <style scoped>
