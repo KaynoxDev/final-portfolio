@@ -25,7 +25,7 @@ const mouseMove = (event) => {
         <a href="#" >Accueil</a>
         <a :href="'#myHistory'">Présentation</a>
         <a :href="'#myProject'">Mes projets</a>
-        <a :href="'#myContact'">Contact</a>
+        <a :href="'#form'">Contact</a>
       </nav>
 
   </header>
