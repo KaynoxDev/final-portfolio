@@ -1,5 +1,4 @@
 <script setup>
-import {RouterLink } from 'vue-router'
 import image from '../assets/img/logotest.png'
 import { ref } from 'vue'
 
@@ -16,14 +15,14 @@ const mouseMove = (event) => {
 
 <template>
   <header>
-    <router-link to="/">
-      <img
+    <a href="#"><img
         alt="logo de kaynoxdev"
         :src="image"
         @mousemove="mouseMove"
-        :style="{ transform: 'translate(' + x * 50 + 'px, ' + y * 20 + 'px)' }"
-      />
-    </router-link>
+        :style="{ transform: 'translate(' + x * 50 + 'px, ' + y * 20 + 'px)' }"></a>
+      
+    
+    
 
     <nav>
     <a href="#">Accueil</a>
@@ -66,4 +65,6 @@ nav {
   justify-content: space-evenly;
   width: 30%;
 }
+
+
 </style>
