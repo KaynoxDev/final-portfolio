@@ -128,6 +128,10 @@ section {
   margin-top: 20px;
 }
 
+#myHistory {
+  margin-top: 200px;
+}
+
 .checked {
   color: #0484b7;
 }

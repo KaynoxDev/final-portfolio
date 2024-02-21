@@ -1,82 +1,119 @@
     <script setup>
     import { ref, onMounted } from 'vue';
-    import cv from '../assets/img/cv.png';
-    import cdc from '../assets/img/cdc.png';
-    import ec from '../assets/img/ec.png';
-    import dam from '../assets/img/dam.png';
+    import { projects } from '../stores/data.js';
 
-    const projects = [
-    { id: 1, title: 'CV', imageSrc: cv },
-    { id: 2, title: 'Espace Commentaire', imageSrc: ec },
-    { id: 3, title: 'Cahier des charges', imageSrc: cdc },
-    { id: 4, title: 'Damier', imageSrc: dam },
-    { id: 5, title: 'Jeu du Morpion', imageSrc: cv }
-    ];
+const dataTable = ref(projects);
 
     const visibleProjects = ref([]);
     const startIndex = ref(0);
-    const endIndex = ref(2);
-    const myProject = ref(null);
+    const endIndex = ref(1);
+  
+    function disableScroll() {
+        document.body.style.overflowY = 'hidden';
+    }
+
+    function enableScroll() {
+        document.body.style.overflow = 'auto';
+    }
 
     onMounted(() => {
-    updateVisibleProjects();
-    
-    });
+    visibleProjects.value = projects.slice(startIndex.value, endIndex.value + 1);
+ 
+  
+});
 
-    function updateVisibleProjects() {
-        visibleProjects.value = projects.slice(startIndex.value, endIndex.value);
 
-    // blocage du scroll horizontal si la souris est dans le container myProject
-        myProject.value.addEventListener('mouseenter', () => {
-        document.body.style.overflowY = 'hidden';
-        
-    });
 
-    myProject.value.addEventListener('mouseleave', () => {
-        document.body.style.overflow = 'auto';
-    });
-    }
+
+
+
 
     // fonction pour le scroll vertical 
 
     function onWheel(event) {
     if (event.deltaY > 0) {
-
-        if (endIndex.value < projects.length) {
-        startIndex.value++;
-        endIndex.value++;
-        updateVisibleProjects();
+        if (endIndex.value < projects.length -1) {
+            startIndex.value++;
+            endIndex.value++;
         }
     } else {
-        
         if (startIndex.value > 0) {
-        startIndex.value--;
-        endIndex.value--;
-        updateVisibleProjects();
+            startIndex.value--;
+            endIndex.value--;
         }
     }
-    }
+    visibleProjects.value = projects.slice(startIndex.value, endIndex.value + 1);
+}
+
+let pictureIndex = ref(0); // Ajoutez cette ligne pour garder une trace de l'index de l'image actuelle
 
 
+import ModalComponent from '@/components/Modal.vue';
 
+const isModalOpened = ref(false);
+  const currentProject = ref(dataTable.value[0]);
 
+  const openModal = (project) => { 
+    currentProject.value = project; 
+    isModalOpened.value = true;
+  };
+
+  const closeModal = () => {
+    isModalOpened.value = false;
+  };
+
+  const changePicture = () => {
+    pictureIndex.value = (pictureIndex.value + 1) % currentProject.value.picture.length;
+    currentProject.value.currentImage = currentProject.value.picture[pictureIndex.value]; // Changez cette ligne
+};
 
     </script>
 
     <template>
         <div id="project">
-        <section id="myProject" ref="myProject">
+        <section id="myProject" @mouseenter="disableScroll" @mouseleave="enableScroll" >
         <h2>Mes Projets</h2>
         <article>
             <ul ref="projectList" @wheel="onWheel">
-    <li v-for="project in visibleProjects" :key="project.id">
+                <li v-for="project in visibleProjects" :key="project.id">
+        
         <h3>{{ project.title }}</h3>
-        <img :src="project.imageSrc" alt="images de mes projets">
+        <button @click="openModal(project)"><img :src="project.imageSrc" alt="images de mes projets"></button>
+            <ModalComponent :isOpen="isModalOpened">
+              <template #header>
+              <div id="closebtn">
+                {{ currentProject.title }}
+            <button id="btn"  @click="closeModal(project)">X</button>
+              </div>  </template> 
+              <template #content>
+                <div id="btnnext">
+                    <button id="btnchange" @click="changePicture">&larr;</button>
+                <img id="imgproject" :src="currentProject.currentImage" alt="image du projet selectionné"> 
+                <button id="btnchange" @click="changePicture">&rarr;</button>
+            </div>
+                
+              </template>
+              <template #footer>
+                
+                <div id="timeGit">
+                    <p>{{currentProject.createdAt}}</p>
+                <p>{{currentProject.techno}}</p>
+                <a :href="currentProject.project_link" target="_blank" rel="noopener"><img id="git" :src="currentProject.logo_link" alt=""></a>
+                </div>
+                
+              </template>
+            </ModalComponent>
+        
+        
     </li>
     </ul>
+    
         </article>
         </section>
+
+        
     </div>
+    
     </template>
 
     <style scoped>
@@ -111,7 +148,7 @@
     display: flex ;
     padding-top: 20px;
     padding-bottom: 20px;
-    margin-top: 100px;
+    margin-top: 200px;
     }
 
     #project {
@@ -140,16 +177,78 @@
     align-items: center;
     width: 100%;
     padding: 20px;
-    
     margin: 10px;
-    
     }
 
     img {
-    width: 100%;
+    width: 400px;
     height: 500px;
     border-radius: 10px;
     }
 
+    #git{
+        width: 40px;
+        height: 40px;
+    }
 
+    #timeGit {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 500px;
+    }
+
+    #timeGit a:hover {
+        background-color: white;
+        border-radius: 10px;
+    }
+
+
+    button {
+        height: 500px;
+        border-radius: 20px;
+    }
+
+    #imgproject {
+        width: 800px;
+        height: 500px;
+    }
+
+    #btn {
+        
+        border: none;
+        width: 0px;
+        height: 20px;
+        font-size: 20px;
+        color: white;
+    }
+
+    #btnchange {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        margin-left: 10px;
+        margin-right: 50px;
+        width: 0;
+        height: 40px;
+        font-size: 40px;
+    }
+
+    #btnnext {
+        display: flex;
+        align-items: center;
+    }
+
+    #closebtn{
+        display: flex;
+        font-weight: bold;
+        color: var(--secondary-color);
+        text-transform: capitalize;
+        font-size: 20px;
+        width: 700px;
+        letter-spacing: 2px;
+        align-items: center;
+        justify-content: space-between;
+    }
     </style>
+    

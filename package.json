@@ -11,6 +11,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@fortawesome/vue-fontawesome": "^3.0.6",
+    "@sendgrid/mail": "^8.1.1",
+    "@vueuse/core": "^10.7.2",
+    "dotenv": "^16.4.5",
     "pinia": "^2.1.7",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
