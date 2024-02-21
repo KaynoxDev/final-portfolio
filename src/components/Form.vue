@@ -71,10 +71,10 @@ form {
   padding-top: 30px;
   padding-bottom: 30px;
   margin-top: 150px;
-  margin-left: 130px;
+  margin-left: 65px;
   background-color: #043444;
   box-shadow: 5px 5px 20px #bcc9ce;
-  width: 80%;
+  width: 90%;
   border-radius: 1%;
   color: #04a3e3;
 }

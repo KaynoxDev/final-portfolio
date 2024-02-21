@@ -10,6 +10,12 @@ const mouseMove = (event) => {
   y.value = event.clientY / window.innerHeight
 }
 
+const activeMenu = ref('Accueil') // Initialise le menu actif sur 'Accueil'
+
+const setActiveMenu = (menu) => {
+  activeMenu.value = menu
+}
+
 
 </script>
 
@@ -25,10 +31,10 @@ const mouseMove = (event) => {
     
 
     <nav>
-    <a href="#">Accueil</a>
-    <a :href="'#myHistory'">Présentation</a>
-    <a :href="'#myProject'">Mes projets</a>
-    <a :href="'#form'">Contact</a>
+      <a :class="{ active: activeMenu === 'Accueil' }" href="#" @click="setActiveMenu('Accueil')">Accueil</a>
+      <a :class="{ active: activeMenu === 'Présentation' }" href="#myHistory" @click="setActiveMenu('Présentation')">Présentation</a>
+      <a :class="{ active: activeMenu === 'Mes projets' }" href="#myProject" @click="setActiveMenu('Mes projets')">Mes projets</a>
+      <a :class="{ active: activeMenu === 'Contact' }" href="#form" @click="setActiveMenu('Contact')">Contact</a>
     </nav>
   </header>
 </template>
@@ -62,8 +68,13 @@ img {
 
 nav {
   display: flex;
-  justify-content: space-evenly;
-  width: 30%;
+  justify-content: space-between;
+  width: 40%;
+  font-size: 20px;
+}
+
+.active {
+  text-decoration: underline;
 }
 
 

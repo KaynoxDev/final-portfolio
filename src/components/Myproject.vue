@@ -8,39 +8,31 @@ const visibleProjects = ref([])
 const startIndex = ref(0)
 const endIndex = ref(1)
 
-function disableScroll() {
-  document.body.style.overflowY = 'hidden'
-}
-
-function enableScroll() {
-  document.body.style.overflow = 'auto'
-}
-
 onMounted(() => {
   visibleProjects.value = projects.slice(startIndex.value, endIndex.value + 1)
 })
 
-// fonction pour le scroll vertical
+// fonction pour changer de projet au clique
 
-function onWheel(event) {
-  if (event.deltaY > 0) {
-    if (endIndex.value < projects.length - 1) {
-      startIndex.value++
-      endIndex.value++
-    }
-  } else {
-    if (startIndex.value > 0) {
-      startIndex.value--
-      endIndex.value--
-    }
+function click() {
+  startIndex.value = (startIndex.value + 2) % projects.length
+  endIndex.value = (startIndex.value + 1) % projects.length
+
+  if (endIndex.value >= projects.length) {
+    endIndex.value = 0
   }
-  visibleProjects.value = projects.slice(startIndex.value, endIndex.value + 1)
+
+  visibleProjects.value = [projects[startIndex.value], projects[endIndex.value]]
 }
 
-let pictureIndex = ref(0) // Ajoutez cette ligne pour garder une trace de l'index de l'image actuelle
+let pictureIndex = ref(0) // garder une trace de l'index de l'image actuelle
 
+const changePicture = () => {
+  pictureIndex.value = (pictureIndex.value + 1) % currentProject.value.picture.length
+  currentProject.value.currentImage = currentProject.value.picture[pictureIndex.value]
+}
 
-// ouverture et fermeture du modal 
+// ouverture et fermeture du modal
 
 import ModalComponent from '@/components/Modal.vue'
 
@@ -57,21 +49,22 @@ const closeModal = () => {
 }
 
 
-const changePicture = () => {
-  pictureIndex.value = (pictureIndex.value + 1) % currentProject.value.picture.length
-  currentProject.value.currentImage = currentProject.value.picture[pictureIndex.value]
-}
-
 </script>
 
 <template>
   <div id="project">
-    <section id="myProject" @mouseenter="disableScroll" @mouseleave="enableScroll">
+    <section id="myProject">
       <h2>Mes Projets</h2>
+
       <article>
-        <ul ref="projectList" @wheel="onWheel">
+        <div id="btnsuivant">
+          <button id="nextproject1" @click="click">&lt;&lt;</button>
+          <button id="nextproject2" @click="click">&gt;&gt;</button>
+        </div>
+        <ul ref="projectList">
           <li v-for="project in visibleProjects" :key="project.id">
             <h3>{{ project.title }}</h3>
+
             <button @click="openModal(project)">
               <img id="pictureProject" :src="project.imageSrc" alt="images de mes projets" />
             </button>
@@ -98,7 +91,7 @@ const changePicture = () => {
                   <p>{{ currentProject.createdAt }}</p>
                   <p>{{ currentProject.techno }}</p>
                   <a :href="currentProject.project_link" target="_blank" rel="noopener"
-                    ><img id="git" :src="currentProject.logo_link" alt=""
+                    ><img id="git" :src="currentProject.logo_link" alt="logo de mes réseaux sociaux"
                   /></a>
                 </div>
               </template>
@@ -118,7 +111,7 @@ section {
   align-items: center;
   background-color: #043444;
   box-shadow: 5px 5px 20px #bcc9ce;
-  width: 80%;
+  width: 90%;
   border-radius: 1%;
 }
 
@@ -141,7 +134,7 @@ section h2 {
   padding-top: 20px;
   padding-bottom: 20px;
   margin-top: 200px;
-  scroll-margin-top: 130px;
+  scroll-margin-top: 160px;
 }
 
 #project {
@@ -151,6 +144,33 @@ section h2 {
   padding-top: 50px;
 }
 
+#nextproject1 {
+  background-color: var(--primary-color);
+  border: 0;
+  font-size: 25px;
+  height: 20px;
+  width: 50px;
+  color: #04a3e3ed;
+  margin-left: 20px;
+}
+
+#nextproject2 {
+  background-color: var(--primary-color);
+  border: 0;
+  font-size: 25px;
+  height: 20px;
+  width: 50px;
+  color: #04a3e3ed;
+  margin-right: 20px;
+}
+
+#btnsuivant {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 article {
   width: 100%;
   color: var(--secondary-color);
@@ -158,6 +178,7 @@ article {
 
 ul {
   display: flex;
+  align-items: center;
   justify-content: space-around;
   list-style: none;
 }
@@ -169,6 +190,7 @@ li {
   width: 100%;
   padding: 20px;
   margin: 10px;
+  color: #04a3e3;
 }
 
 img {
@@ -194,12 +216,12 @@ img {
   border-radius: 10px;
 }
 
-#pictureProject{
+#pictureProject {
   transition: box-shadow 0.3s ease-in-out;
 }
 
-#pictureProject:hover{
-  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
+#pictureProject:hover {
+  box-shadow: 10px 10px 5px #04a3e3ed;
 }
 
 button {
@@ -247,5 +269,4 @@ button {
   align-items: center;
   justify-content: space-between;
 }
-
 </style>
