@@ -60,7 +60,7 @@ const onSubmit = () => {
 h2 {
   padding-right: 500px;
   text-decoration: underline;
-  color: var(--secondary-color);
+  color: #04a3e3;
 }
 
 form {
@@ -76,7 +76,7 @@ form {
   box-shadow: 5px 5px 20px #bcc9ce;
   width: 80%;
   border-radius: 1%;
-  color: var(--secondary-color);
+  color: #04a3e3;
 }
 
 label {

@@ -39,6 +39,9 @@ function onWheel(event) {
 
 let pictureIndex = ref(0) // Ajoutez cette ligne pour garder une trace de l'index de l'image actuelle
 
+
+// ouverture et fermeture du modal 
+
 import ModalComponent from '@/components/Modal.vue'
 
 const isModalOpened = ref(false)
@@ -53,10 +56,12 @@ const closeModal = () => {
   isModalOpened.value = false
 }
 
+
 const changePicture = () => {
   pictureIndex.value = (pictureIndex.value + 1) % currentProject.value.picture.length
-  currentProject.value.currentImage = currentProject.value.picture[pictureIndex.value] // Changez cette ligne
+  currentProject.value.currentImage = currentProject.value.picture[pictureIndex.value]
 }
+
 </script>
 
 <template>
@@ -136,6 +141,7 @@ section h2 {
   padding-top: 20px;
   padding-bottom: 20px;
   margin-top: 200px;
+  scroll-margin-top: 130px;
 }
 
 #project {
@@ -188,11 +194,11 @@ img {
   border-radius: 10px;
 }
 
-#pictureProject, #imgproject {
+#pictureProject{
   transition: box-shadow 0.3s ease-in-out;
 }
 
-#pictureProject:hover, #imgproject:hover {
+#pictureProject:hover{
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -242,7 +248,4 @@ button {
   justify-content: space-between;
 }
 
-#myProject {
-  scroll-margin-top: 130px; /* match this with the height of your header */
-}
 </style>
