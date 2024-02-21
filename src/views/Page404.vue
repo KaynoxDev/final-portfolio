@@ -4,14 +4,16 @@
 
 <template>
     <div>
+        <h2>404</h2>
         <img src="../assets/img/err404.png" alt="">
     </div>
 </template>
 
-<style>
-    
-div {
-    background-color: var(--primary-color);
+<style scoped>
+
+h2 {
+    font-size: 100px;
+ color: var(--secondary-color);
 }
     
 </style>

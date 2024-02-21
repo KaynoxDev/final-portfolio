@@ -49,7 +49,7 @@ header {
   top: 0;
 }
 
-.active {
+a :active {
   text-decoration: underline;
 }
 
