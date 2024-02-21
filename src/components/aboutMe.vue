@@ -122,7 +122,7 @@ section {
   align-items: center;
   background-color: #043444;
   box-shadow: 5px 5px 20px #bcc9ce;
-  width: 80%;
+  width: 90%;
   border-radius: 1%;
   padding-top: 20px;
   margin-top: 50px;
@@ -154,6 +154,6 @@ section {
 }
 
 #myHistory {
-  scroll-margin-top: 130px; /* match this with the height of your header */
+  scroll-margin-top: 160px;
 }
 </style>
